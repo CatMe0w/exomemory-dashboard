@@ -1,36 +1,36 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import useOverview from '@/app/_data/useOverview'
-import { useState } from 'react'
+import Link from "next/link";
+import useOverview from "@/app/_data/useOverview";
+import { useState } from "react";
 
-export default Overview
+export default Overview;
 
 function Overview() {
-  const { overview, error, isLoading } = useOverview()
-  const [filter, setFilter] = useState('')
+  const { overview, error, isLoading } = useOverview();
+  const [filter, setFilter] = useState("");
 
-  if (error) return <>❌{error.message}</>
-  if (isLoading) return <>⏳</>
+  if (error) return <>❌{error.message}</>;
+  if (isLoading) return <>⏳</>;
 
   if (overview) {
     return (
       <>
         <h1>Overview</h1>
         <input
-          type='text'
-          placeholder='Filter room...'
+          type="text"
+          placeholder="Filter room..."
           value={filter}
           onInput={(i) => setFilter(i.currentTarget.value)}
         />
         {overview.rooms.map((r) => {
-          if (filter && !r.name.toLowerCase().includes(filter)) return null
+          if (filter && !r.name.toLowerCase().includes(filter)) return null;
           return (
             <div key={r.roomId}>
               <Link
                 href={{
-                  pathname: '/lookup/room',
-                  query: { id: r.roomId },
+                  pathname: "/lookup/room",
+                  query: { id: r.roomId }
                 }}
               >
                 {r.name}
@@ -48,9 +48,9 @@ function Overview() {
               <br />
               <br />
             </div>
-          )
+          );
         })}
       </>
-    )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import type { Message as M } from '@/app/_services/useExomemoryService'
+import type { Message as M } from "@/app/_services/useExomemoryService";
 
 export default function Message({ message }: { message: M }) {
   return (
@@ -11,5 +11,5 @@ export default function Message({ message }: { message: M }) {
       <br />
       <br />
     </>
-  )
+  );
 }

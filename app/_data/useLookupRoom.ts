@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import useSWR from 'swr'
-import { assembleSearchParams } from '@/app/_helpers'
-import { Message } from '@/app/_services'
-import useFetcher from './useFetcher'
+import useSWR from "swr";
+import { assembleSearchParams } from "@/app/_helpers";
+import { Message } from "@/app/_services/useExomemoryService";
+import useFetcher from "../_helpers/useFetcher";
 
 export default function useLookupRoom(
   roomId: number,
@@ -11,23 +11,23 @@ export default function useLookupRoom(
   timeBefore?: number,
   timeAfter?: number
 ) {
-  const fetcher = useFetcher()
+  const fetcher = useFetcher();
 
   const searchParams = assembleSearchParams({
     id: roomId,
     page,
     timeBefore,
-    timeAfter,
-  })
+    timeAfter
+  });
 
   const { data, error, isLoading } = useSWR<Message[], Error, string>(
-    '/lookup/room?' + searchParams,
+    "/lookup/room?" + searchParams,
     fetcher
-  )
+  );
 
   return {
     messages: data,
     error,
-    isLoading,
-  }
+    isLoading
+  };
 }

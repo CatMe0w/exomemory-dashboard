@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import {useEffect} from "react";
-import {useRouter, useSearchParams} from "next/navigation";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Message from "@/app/_components/Message";
-import useLookupMessage from '@/app/_data/useLookupMessage'
+import useLookupMessage from "@/app/_data/useLookupMessage";
 
 export default LookupMessage;
 
@@ -11,8 +11,8 @@ function LookupMessage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const messageId = searchParams.get('id');
-  const pagination = searchParams.get('pagination') ?? undefined;
+  const messageId = searchParams.get("id");
+  const pagination = searchParams.get("pagination") ?? undefined;
 
   useEffect(() => {
     if (!messageId) {
@@ -21,7 +21,7 @@ function LookupMessage() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const {messages, error, isLoading} = useLookupMessage(messageId!, pagination);
+  const { messages, error, isLoading } = useLookupMessage(messageId!, pagination);
 
   if (error) return <>❌</>;
   if (isLoading) return <>⏳</>;

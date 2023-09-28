@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import useSWR from 'swr'
-import { assembleSearchParams } from '@/app/_helpers'
-import { Message } from '@/app/_services'
-import useFetcher from './useFetcher'
+import useSWR from "swr";
+import { assembleSearchParams } from "@/app/_helpers";
+import { Message } from "@/app/_services/useExomemoryService";
+import useFetcher from "../_helpers/useFetcher";
 
 export default function useSearchMessages(
   keyword: string,
@@ -12,24 +12,24 @@ export default function useSearchMessages(
   timeAfter?: number,
   roomId?: number
 ) {
-  const fetcher = useFetcher()
+  const fetcher = useFetcher();
 
   const searchParams = assembleSearchParams({
     keyword,
     page,
     timeBefore,
     timeAfter,
-    roomId,
-  })
+    roomId
+  });
 
   const { data, error, isLoading } = useSWR<Message[], Error, string>(
-    '/search/messages?' + searchParams,
+    "/search/messages?" + searchParams,
     fetcher
-  )
+  );
 
   return {
     messages: data,
     error,
-    isLoading,
-  }
+    isLoading
+  };
 }

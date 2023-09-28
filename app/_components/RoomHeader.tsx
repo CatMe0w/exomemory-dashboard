@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import useInspectRoom from "@/app/_data/useInspectRoom";
 
@@ -11,14 +11,14 @@ export default function RoomHeader({ roomId }: { roomId: number }) {
   //   void exomemoryService.getInspectRoom(roomId);
   // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { room, error, isLoading } = useInspectRoom(roomId)
+  const { room, error, isLoading } = useInspectRoom(roomId);
 
-  if (error) return <>❌</>
-  if (isLoading) return <>⏳</>
+  if (error) return <>❌</>;
+  if (isLoading) return <>⏳</>;
 
   if (room) {
-    return <>{room.name}</>
+    return <>{room.name}</>;
   } else {
-    return <>⏳</>
+    return <>⏳</>;
   }
 }
