@@ -1,27 +1,20 @@
-'use client';
+'use client'
 
-import useSWR from "swr";
-import {fetcher} from "@/app/_helpers";
-import {Room, useExomemoryService} from "@/app/_services";
+import useSWR from 'swr'
+import { Room } from '@/app/_services'
+import useFetcher from './useFetcher'
 
-export {useInspectRoom}
+export default function useInspectRoom(roomId: number) {
+  const fetcher = useFetcher()
 
-function useInspectRoom(roomId: number) {
-  const exomemoryService = useExomemoryService();
-  const {apiUrl, authorization} = exomemoryService;
-
-  const shouldFetch = Boolean(apiUrl && authorization);
-
-  const {
-    data,
-    error,
-    isLoading
-  } = useSWR<Room, Error, [string, string?] | null>(shouldFetch ? [apiUrl + '/inspect/room/' + roomId.toString(), authorization] : null,
-    ([url, authorization]) => fetcher(url, authorization));
+  const { data, error, isLoading } = useSWR<Room, Error, string>(
+    '/inspect/room/' + roomId.toString(),
+    fetcher
+  )
 
   return {
     room: data,
-    error: shouldFetch ? error : Error('Not logged in'),
+    error,
     isLoading,
   }
 }

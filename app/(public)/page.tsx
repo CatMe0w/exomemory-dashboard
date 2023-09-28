@@ -2,14 +2,13 @@
 
 import {useForm} from 'react-hook-form';
 
-import {useExomemoryService} from "@/app/_services";
+import useExomemoryService from "@/app/_services/useExomemoryService";
 import {useRouter} from "next/navigation";
 
 export default Login;
 
 function Login() {
   const exomemoryService = useExomemoryService();
-  const router = useRouter();
 
   const {register, handleSubmit, formState} = useForm();
   const {errors} = formState;

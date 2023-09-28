@@ -1,32 +1,29 @@
-'use client';
+'use client'
 
-import useSWR from "swr";
-import {assembleSearchParams, fetcher} from "@/app/_helpers";
-import {Message, useExomemoryService} from "@/app/_services";
+import useSWR from 'swr'
+import { assembleSearchParams } from '@/app/_helpers'
+import useFetcher from './useFetcher'
+import { Message } from '@/app/_services'
 
-export {useLookupMessage}
+export default function useLookupMessage(
+  messageId: string,
+  pagination?: string
+) {
+  const fetcher = useFetcher()
 
-function useLookupMessage(messageId: string, pagination?: string) {
-  const exomemoryService = useExomemoryService();
-  const {apiUrl, authorization} = exomemoryService;
+  const searchParams = assembleSearchParams({
+    id: messageId,
+    pagination,
+  })
 
-  const shouldFetch = Boolean(apiUrl && authorization);
-
-  const searchParams = assembleSearchParams(
-    ['id', messageId],
-    ['pagination', pagination],
-  );
-
-  const {
-    data,
-    error,
-    isLoading
-  } = useSWR<Message[], Error, [string, string?] | null>(shouldFetch ? [apiUrl + '/lookup/message?' + searchParams, authorization] : null,
-    ([url, authorization]) => fetcher(url, authorization));
+  const { data, error, isLoading } = useSWR<Message[], Error, string>(
+    '/lookup/message?' + searchParams,
+    fetcher
+  )
 
   return {
     messages: data,
-    error: shouldFetch ? error : Error('Not logged in'),
+    error,
     isLoading,
   }
 }

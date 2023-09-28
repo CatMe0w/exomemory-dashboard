@@ -3,8 +3,8 @@
 import {useEffect} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {intOrUndefined} from "@/app/_helpers";
-import {Message} from "@/app/_components";
-import {useLookupUser} from "@/app/_data";
+import Message from "@/app/_components/Message";
+import useLookupUser from '@/app/_data/useLookupUser'
 
 export default LookupUser;
 

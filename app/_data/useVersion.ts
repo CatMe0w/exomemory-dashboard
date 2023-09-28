@@ -1,27 +1,19 @@
-'use client';
+'use client'
 
-import useSWR from "swr";
-import {fetcher} from "@/app/_helpers";
-import {useExomemoryService} from "@/app/_services";
+import useSWR from 'swr'
+import useFetcher from './useFetcher'
 
-export {useVersion}
+export default function useVersion() {
+  const fetcher = useFetcher()
 
-function useVersion() {
-  const exomemoryService = useExomemoryService();
-  const {apiUrl, authorization} = exomemoryService;
-
-  const shouldFetch = Boolean(apiUrl && authorization);
-
-  const {
-    data,
-    error,
-    isLoading
-  } = useSWR<string, Error, [string, string?] | null>(shouldFetch ? [apiUrl + '/version', authorization] : null,
-    ([url, authorization]) => fetcher(url, authorization));
+  const { data, error, isLoading } = useSWR<string, Error, string>(
+    '/version',
+    fetcher
+  )
 
   return {
     version: data,
-    error: shouldFetch ? error : Error('Not logged in:version'),
+    error,
     isLoading,
   }
 }

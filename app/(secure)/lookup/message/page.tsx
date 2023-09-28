@@ -2,8 +2,8 @@
 
 import {useEffect} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
-import {Message} from "@/app/_components";
-import {useLookupMessage} from "@/app/_data";
+import Message from "@/app/_components/Message";
+import useLookupMessage from '@/app/_data/useLookupMessage'
 
 export default LookupMessage;
 

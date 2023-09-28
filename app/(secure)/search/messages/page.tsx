@@ -3,8 +3,8 @@
 import {useEffect} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {intOrUndefined} from "@/app/_helpers";
-import {Message} from "@/app/_components";
-import {useSearchMessages} from "@/app/_data";
+import Message from "@/app/_components/Message";
+import useSearchMessages from '@/app/_data/useSearchMessages'
 
 export default SearchMessages;
 

@@ -1,29 +1,27 @@
-import {create} from 'zustand';
+import { create } from 'zustand'
 
-export {useAlertService};
+const alertStore = create<IAlertStore>(() => ({}))
 
-const alertStore = create<IAlertStore>(() => ({}));
-
-function useAlertService(): IAlertService {
-  const {alert} = alertStore();
+export default function useAlertService(): IAlertService {
+  const { alert } = alertStore()
 
   return {
     alert,
     show: (message: string) => {
       alertStore.setState({
-        alert: {message}
-      });
+        alert: { message },
+      })
     },
     clear: () => {
       alertStore.setState({
-        alert: undefined
-      });
-    }
+        alert: undefined,
+      })
+    },
   }
 }
 
 interface IAlert {
-  message: string,
+  message: string
 }
 
 interface IAlertStore {
@@ -31,6 +29,6 @@ interface IAlertStore {
 }
 
 interface IAlertService extends IAlertStore {
-  show: (message: string) => void,
-  clear: () => void,
+  show: (message: string) => void
+  clear: () => void
 }
