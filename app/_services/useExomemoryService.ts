@@ -29,7 +29,7 @@ export default function useExomemoryService(): IExomemoryService {
     username,
     password,
     login: (apiUrl: string, username: string, password: string) => {
-      let authorization = "Basic " + Buffer.from(username + ":" + password).toString();
+      let authorization = "Basic " + Buffer.from(username + ":" + password).toString('base64');
       exomemoryStore.setState({ apiUrl, authorization, username, password });
       router.replace("/overview");
     },

@@ -43,7 +43,7 @@ function LookupRoom() {
         <br />
         <br />
         {messages.map((m) => (
-          <Message message={m} key={m.id}></Message>
+          <Message message={m} showLink={false} key={m.id}></Message>
         ))}
       </>
     );

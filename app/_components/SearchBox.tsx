@@ -78,7 +78,7 @@ export default function SearchBox() {
           router.push(
             "/lookup/user?" +
             assembleSearchParams({
-              keyword,
+              id: keyword,
               timeBefore: new Date(timeBefore).getTime(),
               timeAfter: new Date(timeAfter).getTime(),
               roomId

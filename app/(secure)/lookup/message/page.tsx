@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Message from "@/app/_components/Message";
 import useLookupMessage from "@/app/_data/useLookupMessage";
@@ -12,7 +12,10 @@ function LookupMessage() {
   const router = useRouter();
 
   const messageId = searchParams.get("id");
-  const pagination = searchParams.get("pagination") ?? undefined;
+
+  const { messages, error, isLoading } = useLookupMessage(messageId!);
+
+  const currentMessageRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!messageId) {
@@ -21,7 +24,9 @@ function LookupMessage() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { messages, error, isLoading } = useLookupMessage(messageId!, pagination);
+  useEffect(() => {
+    currentMessageRef.current?.scrollIntoView({ block: "center" });
+  }, [messages]);
 
   if (error) return <>❌</>;
   if (isLoading) return <>⏳</>;
@@ -31,7 +36,9 @@ function LookupMessage() {
       <>
         <h1>Lookup Message</h1>
         {messages.map((m) =>
-          <Message message={m} key={m.id}></Message>
+          m.id === messageId
+            ? <div ref={currentMessageRef} key={m.id}><Message message={m} showLink={false} highlight={true}></Message></div>
+            : <Message message={m} showLink={false} key={m.id}></Message>
         )}
       </>
     );
